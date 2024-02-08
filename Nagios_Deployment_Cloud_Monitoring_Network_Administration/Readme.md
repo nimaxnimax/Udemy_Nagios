@@ -430,7 +430,7 @@ define host {
 use linux-server
 host_name remote_host
 alias Remote Host
-address 163.172.168.167
+address IP_address_of_your_host
 register 1
 }
 define service {
