@@ -156,12 +156,6 @@ tar -xvzf nagios-4.4.10.tar.gz
 Next, change the directory to the extracted directory and configure the Nagios Core with the following command:
 
 ```bash
-tar -xvzf nagios-4.4.10.tar.gz
-```
-
-Next, change the directory to the extracted directory and configure the Nagios Core with the following command:
-
-```bash
 cd nagios-4.4.10/
 sudo ./configure --with-httpd-conf=/etc/apache2/sites-enabled
 ```
@@ -230,6 +224,9 @@ Next, you will need to create an admin user to access the Nagios web interface. 
 sudo htpasswd -c /usr/local/nagios/etc/htpasswd.users nagiosadmin
 ```
 
+
+**********
+
 Install Nagios Plugins
 
 Next, you will need to download the Nagios plugins to monitor the system services. You can download it from the Git repository with the following command:
@@ -288,6 +285,8 @@ Provide your Nagios admin username, password and click on the OK button. You sho
 Nagios and the required plugins are installed.
 
 
+**********
+
 Configuring Nagios
 
 To monitor servers, we have to configure Nagios by editing the file /usr/local/nagios/etc/nagios.cfg.
@@ -324,6 +323,8 @@ sudo systemctl restart nagios
 sudo systemctl status nagios
 ```
 
+
+**********
 
 Monitoring a Server with the NPRE service
 
@@ -408,6 +409,9 @@ sudo ./configure
 sudo make all
 sudo make install
 ```
+
+
+**********
 
 The following steps have to be done on the Nagios server
 
