@@ -326,9 +326,9 @@ sudo systemctl status nagios
 
 **********
 
-Monitoring a Server with the NPRE service
+Monitoring a Server with the NRPE service
 
-The NPRE service
+The NRPE service
 
 (Nagios Remote Plugin Executor) is an add-on that allows you to execute Nagios commands on a remote Linux servers. It is basically used to gather “local” information (like disk usage, RAM usage, CPU usage) of a remote machine. As these information are not broadcasted on the Internet, an agent has to run on the server which reports to the Nagios server.
 
