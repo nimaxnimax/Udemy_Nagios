@@ -122,10 +122,10 @@ How to Install Nagios Monitoring Tool on Ubuntu 20 and 22
 
 Nagios is a powerful free, open-source monitoring tool used for monitoring Linux and Windows servers and networks and infrastructure. With Nagios, you can monitor CPU usage, disk usage, and several services including HTTP, SSH, FTP, SMTP, and more. It has a simple and user-friendly web interface that helps you monitor all servers from the central location. It can be easily integrated with third-party applications with multiple APIs. Nagios works by continuously monitoring hosts and services that you specify and alerting you when things go bad.
 
-This tutorial will show you how to install Nagios Core on Ubuntu 22.04 server.
+This tutorial will show you how to install Nagios Core on Ubuntu 20 or 22 server.
 
 Prerequisites
-- A server running Ubuntu 22.04.
+- A server running Ubuntu 20 or 22
 - A root password is configured on the server.
 
 Install Required Dependency
