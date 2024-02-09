@@ -502,6 +502,174 @@ The remote server will appear in your Nagios interface and you can see the statu
 
 Nagios and Docker
 
+Default Username >> nagiosadmin
+Default Password >> nagios
+
+```bash
+sudo fallocate -l 4G /swapfile
+ls -anp /swapfile
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile
+echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
+```
+
+```bash
+sudo apt update -y
+sudo apt-get install apt-transport-https ca-certificates curl gnupg lsb-release -y
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update -y
+sudo apt-get install apache2-utils -y
+sudo apt-get install docker-ce docker-ce-cli containerd.io -y
+sudo apt install docker-compose -y
+sudo systemctl start docker
+sudo systemctl enable docker
+sudo docker ps -a
+```
+
+```bash
+sudo docker pull nimaxnimax/nagios:latest
+sudo docker run -d --name nagios4 -p 80:80 --restart always nimaxnimax/nagios:latest
+sudo docker ps -a
+sudo docker exec -ti nagios4 /bin/bash
+```
+
+```bash
+sudo docker rm -f nagios4
+sudo docker run -d --name nagios4  \
+  -v ./nagios-opt/nagios/etc/:/opt/nagios/etc/ \
+  -p 80:80 --restart always nimaxnimax/nagios:latest
+```
+
+```bash
+find ./nagios-opt/nagios/etc -printf "%P\n"
+sudo cat ./nagios-opt/nagios/etc/nagios.cfg
+sudo htpasswd -c ./nagios-opt/nagios/etc/htpasswd.users nagiosadmin
+```
+
+To monitor servers, we have to configure Nagios by editing the file
+
+```bash
+sudo vi ./nagios-opt/nagios/etc/nagios.cfg
+```
+
+Uncommment the line cfg_dir=/opt/nagios/etc/servers and save the file.
+
+```bash
+cfg_dir=/opt/nagios/etc/servers
+```
+
+```bash
+sudo cat ./nagios-opt/nagios/etc/nagios.cfg | grep server
+```
+
+Create the folder to store configurations:
+
+```bash
+sudo mkdir -p ./nagios-opt/nagios/etc/servers
+sudo mkdir -p ./nagios-opt/nagios/etc/printers
+sudo mkdir -p ./nagios-opt/nagios/etc/switches
+sudo mkdir -p ./nagios-opt/nagios/etc/routers
+```
+
+Configure the contact email address in the file /usr/local/nagios/etc/objects/contacts.cfg
+
+```bash
+sudo vi ./nagios-opt/nagios/etc/objects/contacts.cfg
+```
+
+On the Nagios server, create a configuration file for each remote host that we want to monitor:
+
+```bash
+ls -anp ./nagios-opt/nagios/etc/servers 
+sudo vi ./nagios-opt/nagios/etc/servers/remote_host.cfg
+```
+
+Replace remote_host with the name of the remote server and put the following content in the file:
+
+```bash
+# Remote Host configuration file
+define host {
+use linux-server
+host_name remote_host
+alias Remote Host
+address IP_address_of_your_host
+register 1
+}
+define service {
+host_name remote_host
+service_description PING
+check_command check_ping!100.0,20%!500.0,60%
+max_check_attempts 2
+check_interval 2
+retry_interval 2
+check_period 24x7
+check_freshness 1
+contact_groups admins
+notification_interval 2
+notification_period 24x7
+notifications_enabled 1
+register 1
+}
+define service {
+host_name remote_host
+service_description Disk Usage
+check_command check_local_disk!20%!10%!/
+max_check_attempts 2
+check_interval 2
+retry_interval 2
+check_period 24x7
+check_freshness 1
+contact_groups admins
+notification_interval 2
+notification_period 24x7
+notifications_enabled 1
+register 1
+}
+define service {
+host_name remote_host
+service_description SSH Service
+check_command check_ssh
+max_check_attempts 2
+check_interval 2
+retry_interval 2
+check_period 24x7
+check_freshness 1
+contact_groups admins
+notification_interval 2
+notification_period 24x7
+notifications_enabled 1
+register 1
+}
+```
+
+This file will monitor if the remote host replies on ping, the disk usage of the host and if the SSH service is up. You can find more configuration examples in the file ./nagios-opt/nagios/etc/objects/commands.cfg. Nagios allows you to monitor a wide range of services.
+
+Restart the service:
+
+```bash
+sudo docker container restart nagios4
+sudo docker ps -a
+```
+
+These steps have to be done on the remote server >>
+
+Edit the file /usr/local/nagios/etc/nrpe.cfg. Replace IP_of_your_Nagios_Server with the IP address of your Nagios host:
+
+```bash
+sudo vi /usr/local/nagios/etc/nrpe.cfg
+```
+
+```bash
+allowed_hosts=127.0.0.1,IP_of_your_Nagios_Server
+```
+
+Restart the service:
+
+```bash
+sudo systemctl restart nrpe.service
+```
 
 
 **********
@@ -509,7 +677,9 @@ Nagios and Docker
 Nagios Documents >>
 
 URL >> https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/4/en/index.html
+
 URL >> https://support.nagios.com/kb/article/nagios-core-installing-nagios-core-from-source-96.html#Ubuntu
+
 URL >> https://support.nagios.com/kb/article/nagios-core-performance-graphs-using-pnp4nagios-801.html#Ubuntu
 
 
