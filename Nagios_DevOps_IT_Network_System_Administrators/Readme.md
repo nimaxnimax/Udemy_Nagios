@@ -168,6 +168,8 @@ Open Virtualization Format 64-bit .ova >> This is the quickest way to start usin
 
 URL: https://go2.nagios.com/get-xi/ova
 
+URL: https://assets.nagios.com/downloads/nagiosfusion/docs/Installing-Nagios-Fusion-with-VMware-Workstation-Player.pdf
+
 **********
 
 Download Options 2
