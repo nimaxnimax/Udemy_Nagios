@@ -205,6 +205,42 @@ URL: https://assets.nagios.com/downloads/nagiosxi/docs/Installing-Nagios-XI-with
 
 Download Options 5
 
+Nagios Installation on Cloud
+
+When comparing virtual machines (VMs) across different cloud providers for installing Nagios XI, it's essential to consider factors such as pricing, performance, availability, and ease of management. Here's a brief comparison of VM options and pricing for Azure, AWS, Google Cloud Platform (GCP), DigitalOcean, and Linode:
+
+1. **Azure Virtual Machines**:
+   - Azure offers various VM types suitable for different workloads, including general-purpose, memory-optimized, and compute-optimized instances.
+   - Pricing is based on factors such as VM size, region, and usage (pay-as-you-go or reserved instances).
+   - Azure provides flexible pricing options, including per-minute billing and reserved instances for cost savings.
+   - Azure also offers a free tier with limited resources for experimentation and testing.
+
+2. **AWS EC2 Instances**:
+   - Amazon Elastic Compute Cloud (EC2) offers a wide range of instance types optimized for different use cases, such as compute, memory, storage, and GPU-intensive workloads.
+   - Pricing is based on instance type, region, usage (on-demand, reserved, or spot instances), and additional features like storage and data transfer.
+   - AWS provides various pricing models, including pay-as-you-go, reserved instances, and savings plans for cost optimization.
+   - AWS offers a free tier with limited resources for new users to explore and experiment with EC2 instances.
+
+3. **Google Compute Engine (GCE) VMs**:
+   - Google Cloud Platform (GCP) provides Compute Engine VMs with customizable configurations, including predefined machine types and custom machine types for specific workload requirements.
+   - Pricing is based on factors such as VM type, region, usage (on-demand or committed use), and additional resources like storage and network egress.
+   - GCP offers sustained use discounts and committed use discounts for long-term commitments, along with per-second billing for cost efficiency.
+   - GCP also offers a free tier with limited usage for new users to get started with Compute Engine.
+
+4. **DigitalOcean Droplets**:
+   - DigitalOcean offers Droplets, which are VM instances with fixed configurations, suitable for various use cases from small-scale development to large-scale production deployments.
+   - Pricing is straightforward and based on Droplet size, region, and additional features like block storage and backups.
+   - DigitalOcean provides predictable pricing with hourly billing and monthly caps, making it easy to estimate costs.
+   - DigitalOcean offers a free trial with $100 in credits for new users to try out Droplets and other services.
+
+5. **Linode Instances**:
+   - Linode offers Linode instances, which are VMs with customizable configurations for different workload requirements.
+   - Pricing is based on Linode plan (instance size), region, and additional resources like storage, bandwidth, and backups.
+   - Linode provides transparent pricing with hourly billing and monthly caps, along with prepaid plans for cost savings.
+   - Linode offers a $100 credit for new accounts, allowing users to test Linode services without initial cost.
+
+When comparing pricing across these cloud providers, it's essential to consider not only the cost of VM instances but also additional factors such as storage, data transfer, and other services that may be required for your Nagios XI deployment. Additionally, consider factors like performance, reliability, support, and ease of management when choosing a cloud provider for hosting your Nagios XI installation.
+
 Azure/AWS/GCP/DigitalOcean/Linode
 
 Manual 64-bit .tar.gz >> This download is to manually install Nagios XI on CentOS, RedHat Enterprise, Oracle, Debian, or Ubuntu LTS.
